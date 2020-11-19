@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+
+{% endblock %}
+
+{% block body %}
+    <div style="text-align: center" id="main">
+    {% for antagonist in antagonists %}
+        <img class="antagonist" style="width: 40%" src="{{ antagonist.url }}" ref="{{ antagonist.ref }}" />
+    {% endfor %}
+    </div>
+
+    {% block javascripts %}
+        <script>
+            $(".antagonist").on("click", function(){
+                    $.ajax({
+                        url : 'vote',
+                        type : 'GET',
+                        data : 'ref=' + $(this).attr('ref'),
+                        success : function(){
+                            alert('Merci pour votre vote !');
+                            $(location).attr('href', '{{ path('result') }}');
+                        },
+                        error : function(){
+                            alert("error");
+                        }
+                    });
+            });
+        </script>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    {% endblock %}
+{% endblock %}

@@ -106,4 +106,46 @@ class CatmashHandler
     {
         $this->cr->resetViewedCount();
     }
+
+    /**
+     * @param int $number
+     * @return array
+     */
+    public function getAntagonists(int $number=2) : array
+    {
+        //get least viewed cat
+        $leastSeenCats = $this->cr->getLeastSeenCats($number);
+
+        return $leastSeenCats;
+    }
+
+    /**
+     * @param array $displayedCats
+     */
+    public function increaseDisplayedCats(array $displayedCats) : void
+    {
+        foreach ($displayedCats as $displayedCat) {
+            $currentViewedCatCount = $displayedCat->getViewedCount();
+            $displayedCat->setViewedCount(++$currentViewedCatCount);
+
+            $this->em->persist($displayedCat);
+            $this->em->flush();
+        }
+    }
+
+    /**
+     * @param string $refCat
+     */
+    public function increaseVotedCats(string $refCat) : void
+    {
+        $votedCat = $this->em->getRepository("App:Cat")->findOneByRef($refCat);
+
+        if($votedCat) {
+            $currentVotedCatCount = $votedCat->getVotedCount();
+            $votedCat->setVotedCount(++$currentVotedCatCount);
+
+            $this->em->persist($votedCat);
+            $this->em->flush();
+        }
+    }
 }

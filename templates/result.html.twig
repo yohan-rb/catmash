@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+
+{% endblock %}
+
+{% block body %}
+    Classement des chats les plus minions :
+
+    <div style="text-align: center" id="main">
+        <table>
+        {% set score = 1 %}
+        {% for cat in scoring %}
+            <tr>
+                <td>
+                    <span style="font-size: 40px">{{ score }}</span><img src="{{ cat.url }}" style="width: 400px" />
+                    {% set score = score + 1 %}
+                </td>
+            </tr>
+        {% endfor %}
+
+        </table>
+    </div>
+
+    {% block javascripts %}
+    {% endblock %}
+{% endblock %}

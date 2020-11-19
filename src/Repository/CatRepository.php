@@ -22,11 +22,11 @@ class CatRepository extends ServiceEntityRepository
     /**
      * @return mixed
      */
-    public function deactivateAllCats()
+    public function deactivateAllCats() : int
     {
         return $this->createQueryBuilder('c')
             ->update('App:Cat', 'c')
-            ->set('c. isActive', 0)
+            ->set('c.isActive', 0)
             ->getQuery()
             ->execute()
         ;
@@ -35,14 +35,37 @@ class CatRepository extends ServiceEntityRepository
     /**
      * @return mixed
      */
-    public function resetViewedCount()
+    public function resetViewedCount() : int
     {
         return $this->createQueryBuilder('c')
             ->update('App:Cat', 'c')
-            ->set('c. viewedCount', 0)
+            ->set('c.viewedCount', 0)
             ->getQuery()
             ->execute()
         ;
     }
 
+    /**
+     * @param int $number
+     * @return mixed
+     */
+    public function getLeastSeenCats(int $number) : array
+    {
+        return $this->createQueryBuilder('c')
+            ->orderBy('c.viewedCount', 'ASC')
+            ->setMaxResults($number)
+            ->getQuery()
+            ->execute()
+            ;
+    }
+
+
+    public function getScoring() : array
+    {
+        return $this->createQueryBuilder('c')
+            ->orderBy('c.votedCount', 'DESC')
+            ->getQuery()
+            ->execute()
+            ;
+    }
 }
