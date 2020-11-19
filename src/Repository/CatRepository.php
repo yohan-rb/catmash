@@ -19,32 +19,30 @@ class CatRepository extends ServiceEntityRepository
         parent::__construct($registry, Cat::class);
     }
 
-    // /**
-    //  * @return Cat[] Returns an array of Cat objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return mixed
+     */
+    public function deactivateAllCats()
     {
         return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
+            ->update('App:Cat', 'c')
+            ->set('c. isActive', 0)
             ->getQuery()
-            ->getResult()
+            ->execute()
         ;
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Cat
+    /**
+     * @return mixed
+     */
+    public function resetViewedCount()
     {
         return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
+            ->update('App:Cat', 'c')
+            ->set('c. viewedCount', 0)
             ->getQuery()
-            ->getOneOrNullResult()
+            ->execute()
         ;
     }
-    */
+
 }
