@@ -32,3 +32,5 @@ services:
 
     App\Services\CatmashHandler:
         autowire: true
+        arguments:
+            - '%env(resolve:CATS_COLLECTION_URL)%'

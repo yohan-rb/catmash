@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Cat Mash{% endblock %}</title>
+        {% block stylesheets %}
+            <meta charset="UTF-8">
+            <link rel="stylesheet" href="{{ asset('css/main.css') }}" />
+        {% endblock %}
+        {% block style %}{% endblock %}
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

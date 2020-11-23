@@ -1,0 +1,27 @@
+html {
+    background-color: lightblue;
+}
+
+div#main {
+    text-align: center;
+    height: 100%;
+}
+
+div#antagonists {
+    margin: 50px;
+}
+
+#antagonists img {
+    width: 40%;
+    margin: 20px;
+}
+
+#antagonists img:hover {
+    cursor: pointer;
+}
+
+table#result tr td img{
+    width: 300PX;
+}
+
+

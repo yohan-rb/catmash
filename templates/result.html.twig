@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="main">
+        <h2>Nombre de votes total : {{ totalVoted }}</h2>
+        <h3>Classement des chats les plus minions :</h3>
+        <table id="result">
+            {% set score = 1 %}
+            {% for cats in result %}
+                <tr>
+                    <td><h3>rang {{ score }} {% if cats|length > 1 %} (ex-aequo) {% endif %} :</h3></td>
+                </tr>
+                <tr>
+                    {% for cat in cats %}
+                    <td>
+                        <img src="{{ cat.url }}" />
+                    </td>
+                    {% endfor %}
+                    {% set score = score + 1 %}
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    {% block javascripts %}
+    {% endblock %}
+{% endblock %}

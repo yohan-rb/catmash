@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="main">
+        <h2>CatMash</h2>
+        <span>Merci de voter pour votre chat préféré.</span>
+        <div id="antagonists">
+            {% for antagonist in antagonists %}
+                <img class="antagonist" src="{{ antagonist.url }}" ref="{{ antagonist.ref }}" />
+            {% endfor %}
+        </div>
+    </div>
+
+    {% block javascripts %}
+        <script>
+            $(".antagonist").on("click", function(){
+                    $.ajax({
+                        url : 'vote',
+                        type : 'GET',
+                        data : 'ref=' + $(this).attr('ref'),
+                        success : function(){
+                            alert('Merci pour votre vote !');
+                            $(location).attr('href', '{{ path('result') }}');
+                        },
+                        error : function(){
+                            alert("error");
+                        }
+                    });
+            });
+        </script>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    {% endblock %}
+{% endblock %}
