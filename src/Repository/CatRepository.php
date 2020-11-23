@@ -52,6 +52,7 @@ class CatRepository extends ServiceEntityRepository
     public function getLeastSeenCats(int $number) : array
     {
         return $this->createQueryBuilder('c')
+            ->where('c.isActive = 1')
             ->orderBy('c.viewedCount', 'ASC')
             ->setMaxResults($number)
             ->getQuery()
@@ -65,6 +66,7 @@ class CatRepository extends ServiceEntityRepository
     public function getScoring() : array
     {
         return $this->createQueryBuilder('c')
+            ->where('c.isActive = 1')
             ->orderBy('c.votedCount', 'DESC')
             ->getQuery()
             ->execute()
@@ -80,6 +82,7 @@ class CatRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('c')
             ->select('SUM(c.votedCount)')
+            ->where('c.isActive = 1')
             ->getQuery()
             ->getSingleScalarResult()
             ;

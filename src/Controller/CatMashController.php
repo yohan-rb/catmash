@@ -16,14 +16,15 @@ class CatMashController extends AbstractController
      * @param CatmashHandler $catmashHandler
      * @return Response
      */
-    public function index(CatmashHandler $catmashHandler): Response
+    public function index(CatRepository $cr, CatmashHandler $catmashHandler): Response
     {
         $antagonists = $catmashHandler->getAntagonists(2);
 
         $catmashHandler->increaseDisplayedCats($antagonists);
 
         return $this->render("home.html.twig",[
-            'antagonists' => $antagonists
+            'antagonists' => $antagonists,
+            'totalVoted' => $cr->getTotalVoted()
         ]);
     }
 

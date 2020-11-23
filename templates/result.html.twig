@@ -2,13 +2,14 @@
 
 {% block body %}
     <div id="main">
-        <h2>Nombre de votes total : {{ totalVoted }}</h2>
+        <h2>Nombre de votes : {{ totalVoted }}</h2>
         <h3>Classement des chats les plus minions :</h3>
+        <a href="{{ path('cat_mash') }}"><- retour</a>
         <table id="result">
-            {% set score = 1 %}
+            {% set ranking = 1 %}
             {% for cats in result %}
                 <tr>
-                    <td><h3>rang {{ score }} {% if cats|length > 1 %} (ex-aequo) {% endif %} :</h3></td>
+                    <td><h3>rang {{ ranking }} {% if cats|length > 1 %} (ex-aequo) {% endif %} | {{ cats.0.votedCount }} vote(s):</h3></td>
                 </tr>
                 <tr>
                     {% for cat in cats %}
@@ -16,7 +17,7 @@
                         <img src="{{ cat.url }}" />
                     </td>
                     {% endfor %}
-                    {% set score = score + 1 %}
+                    {% set ranking = ranking + 1 %}
                 </tr>
             {% endfor %}
         </table>
