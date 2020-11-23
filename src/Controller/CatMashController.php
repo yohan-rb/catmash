@@ -18,7 +18,6 @@ class CatMashController extends AbstractController
      */
     public function index(CatmashHandler $catmashHandler): Response
     {
-
         $antagonists = $catmashHandler->getAntagonists(2);
 
         $catmashHandler->increaseDisplayedCats($antagonists);
