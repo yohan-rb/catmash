@@ -2,13 +2,14 @@
 
 {% block body %}
     <div id="main">
-        <h2>CatMash</h2>
+        <h2>C A T M A S H</h2>
         <span>Merci de voter pour votre chat préféré.</span>
         <div id="antagonists">
             {% for antagonist in antagonists %}
                 <img class="antagonist" src="{{ antagonist.url }}" ref="{{ antagonist.ref }}" />
             {% endfor %}
         </div>
+        <h2>Nombre de votes : {{ totalVoted }}</h2>
     </div>
 
     {% block javascripts %}
