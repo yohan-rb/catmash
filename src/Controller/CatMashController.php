@@ -13,6 +13,8 @@ class CatMashController extends AbstractController
 {
     /**
      * @Route("/meow", name="cat_mash", methods="GET")
+     * @param CatmashHandler $catmashHandler
+     * @return Response
      */
     public function index(CatmashHandler $catmashHandler): Response
     {
@@ -28,6 +30,9 @@ class CatMashController extends AbstractController
 
     /**
      * @Route("/vote", name="vote", methods="GET")
+     * @param Request $request
+     * @param CatmashHandler $catmashHandler
+     * @return Response
      */
     public function vote(Request $request, CatmashHandler $catmashHandler) : Response
     {
@@ -41,13 +46,19 @@ class CatMashController extends AbstractController
 
     /**
      * @Route("/result", name="result", methods="GET")
+     * @param CatRepository $cr
+     * @param CatmashHandler $catmashHandler
+     * @return Response
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function result(CatRepository $cr): Response
+    public function result(CatRepository $cr, CatmashHandler $catmashHandler): Response
     {
-        $scoring = $cr->getScoring();
+        $result = $catmashHandler->getSortedResult();
 
         return $this->render("result.html.twig",[
-            'scoring' => $scoring
+            'result' => $result,
+            'totalVoted' => $cr->getTotalVoted()
         ]);
     }
 }

@@ -148,4 +148,20 @@ class CatmashHandler
             $this->em->flush();
         }
     }
+
+    /**
+     * @return array
+     */
+    public function getSortedResult() : array
+    {
+        $sortedResult = [];
+        $scoring = $this->cr->getScoring();
+
+        foreach ($scoring as $cat) {
+            $sortedResult[$cat->getVotedCount()][] = $cat;
+
+        }
+
+        return $sortedResult;
+    }
 }

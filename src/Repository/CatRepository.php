@@ -59,13 +59,29 @@ class CatRepository extends ServiceEntityRepository
             ;
     }
 
-
+    /**
+     * @return array
+     */
     public function getScoring() : array
     {
         return $this->createQueryBuilder('c')
             ->orderBy('c.votedCount', 'DESC')
             ->getQuery()
             ->execute()
+            ;
+    }
+
+    /**
+     * @return int
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getTotalVoted() : int
+    {
+        return $this->createQueryBuilder('c')
+            ->select('SUM(c.votedCount)')
+            ->getQuery()
+            ->getSingleScalarResult()
             ;
     }
 }

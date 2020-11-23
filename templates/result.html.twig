@@ -5,17 +5,23 @@
 {% endblock %}
 
 {% block body %}
-    Classement des chats les plus minions :
+    Nombre de vote total : {{ totalVoted }}
+    <br><br>Classement des chats les plus minions :
 
     <div style="text-align: center" id="main">
         <table>
         {% set score = 1 %}
-        {% for cat in scoring %}
+        {% for cats in result %}
             <tr>
+                <td>{{ score }}{% if cats|length > 1 %} (ex-aequo) {% endif %}</td>
+            </tr>
+            <tr>
+                {% for cat in cats %}
                 <td>
-                    <span style="font-size: 40px">{{ score }}</span><img src="{{ cat.url }}" style="width: 400px" />
-                    {% set score = score + 1 %}
+                    <img src="{{ cat.url }}" style="width: 400px" />
                 </td>
+                {% endfor %}
+                {% set score = score + 1 %}
             </tr>
         {% endfor %}
 
