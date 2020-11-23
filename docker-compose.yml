@@ -2,18 +2,18 @@ version: '3'
 services:
     apache:
         build: .docker/apache
-        container_name: sf4_apache_catmash
+        container_name: sf5_apache_catmash
         ports:
           - 8081:80
         volumes:
           - .docker/config/vhosts:/etc/apache2/sites-enabled
-          - .:/home/wwwroot/sf4
+          - .:/home/wwwroot
         depends_on:
           - php
 
     mysql:
         image: mysql:5.7
-        container_name: sf4_mysql_catmash
+        container_name: sf5_mysql_catmash
         command: "--innodb_use_native_aio=0"
         volumes:
             - .docker/data/db:/var/lib/mysql:rw
@@ -21,24 +21,24 @@ services:
         environment:
             MYSQL_ROOT_PASSWORD: root
             MYSQL_DATABASE: bigard
-            MYSQL_USER: sf4
-            MYSQL_PASSWORD: sf4
+            MYSQL_USER: sf5
+            MYSQL_PASSWORD: sf5
 
     php:
         build: .docker/php
-        container_name: sf4_php_catmash
+        container_name: sf5_php_catmash
         volumes:
-          - .:/home/wwwroot/sf4
+          - .:/home/wwwroot
         user: "1000:50"
         environment:
-          - maildev_host=sf4_maildev_catmash
+          - maildev_host=sf5_maildev_catmash
         depends_on:
           - maildev
           - mysql
 
     phpmyadmin:
          image: phpmyadmin/phpmyadmin
-         container_name: sf4_phpmyadmin_catmash
+         container_name: sf5_phpmyadmin_catmash
          environment:
              - PMA_ARBITRARY=1
              - PMA_HOST=mysql:3306
@@ -52,6 +52,6 @@ services:
 
     maildev:
         image: djfarrelly/maildev
-        container_name: sf4_maildev_catmash
+        container_name: sf5_maildev_catmash
         ports:
           - 8001:80
